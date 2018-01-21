@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -27,7 +27,8 @@ import {MatListModule, MatIconModule, MatToolbarModule,
     MatToolbarModule,
     MatButtonModule,
     MatMenuModule,
-    MatSliderModule
+    MatSliderModule,
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]
