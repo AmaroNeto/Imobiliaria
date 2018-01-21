@@ -1,0 +1,14 @@
+#googleMap {
+  height: 400px;
+  width: 100%;
+}
+
+.slider {
+  width: 40%;
+}
+
+.section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+}

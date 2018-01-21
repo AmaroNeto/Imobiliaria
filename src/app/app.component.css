@@ -1,0 +1,28 @@
+@media screen  {
+  .wrapper {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-gap: 0px;
+      grid-template-areas:
+          "m m h h h h h h h h h h"
+          "m m c c c c c c c c c c"
+          "m m c c c c c c c c c c"
+          "m m c c c c c c c c c c";
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .header {
+      grid-area: h;
+  }
+  .menu {
+    flex-direction: column;
+      justify-content: space-between;
+      background: lightgray;
+      grid-area: m;
+  }
+  .content {
+      margin: 40px;
+      grid-area: c;
+  }
+}

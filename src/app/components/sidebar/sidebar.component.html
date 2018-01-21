@@ -1,0 +1,6 @@
+<mat-nav-list class="wrapper">
+  <mat-list-item *ngFor="let menu of menuItems" dense>
+    <a matLine [routerLink]="[menu.link]">{{ menu.titulo }}</a>
+    <mat-icon>{{menu.icon}}</mat-icon>
+  </mat-list-item>
+</mat-nav-list>

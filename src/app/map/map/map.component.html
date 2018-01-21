@@ -1,0 +1,15 @@
+<h2 class="mat-title">por M²</h2>
+
+  <section class="section">
+   <mat-slider
+       class="slider"
+       [max]="max"
+       [min]="min"
+       [step]="step"
+       [thumb-label]="true"
+       (input)="onInputChange($event)">
+   </mat-slider>
+   <h3>{{value}}</h3>
+ </section>
+
+<div id="googleMap" ></div>
