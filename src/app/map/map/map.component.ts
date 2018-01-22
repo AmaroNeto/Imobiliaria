@@ -13,7 +13,7 @@ export class MapComponent implements OnInit {
 
   min = 0;
   max = 600;
-  value = 0;
+  value = 100;
   step = 1;
 
   constructor() { }

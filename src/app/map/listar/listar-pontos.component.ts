@@ -16,6 +16,7 @@ export class ListarPontosComponent implements OnInit {
   pontos: Ponto[];
   displayedColumns = ['imobiliaria', 'endereco', 'tamanho', 'valor', 'detalhe'];
   dataSource : MatTableDataSource<Ponto>;
+  possuiErro: boolean;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -23,7 +24,8 @@ export class ListarPontosComponent implements OnInit {
   constructor(private mapService: MapService, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.pontos = this.listarTodos();
+    this.pontos = [];
+    this.listarTodos();
     this.dataSource = new MatTableDataSource<Ponto>(this.pontos);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
@@ -35,9 +37,12 @@ export class ListarPontosComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  listarTodos(): Ponto[]{
-    return [new Ponto(1,'rua marques de pombal, boa vista, roraima',
-            '-55555', '-222222', 2500, 200000, 120, 'Viva Real')];
-    //return this.mapService.listarTodos();
+  listarTodos(){
+    /*return [new Ponto(1,'rua marques de pombal, boa vista, roraima',
+            '-55555', '-222222', 2500, 200000, 120, 'Viva Real')];*/
+     this.mapService.listarTodos().subscribe(
+       response => this.pontos = response,
+       error => this.possuiErro = true
+     );
   }
 }

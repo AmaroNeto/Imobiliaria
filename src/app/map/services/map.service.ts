@@ -9,7 +9,7 @@ import {
 @Injectable()
 export class MapService {
 
-  private readonly BASE_URL = "http://api.fixer.io/latest";
+  private readonly BASE_URL = "https://tranquil-garden-64029.herokuapp.com/";
 
   constructor(private http: Http) { }
 
@@ -19,10 +19,10 @@ export class MapService {
   *@param Ponto ponto
   *@return Observable<Ponto>
   */
-  listarTodos(): Observable<Ponto> {
+  listarTodos(): Observable<Ponto[]> {
     return this.http
-      .get(this.BASE_URL)
-      .map(response => response.json() as Ponto)
+      .get(this.BASE_URL+"api/pontos")
+      .map(response => response.json().data as Ponto[])
       .catch(error => Observable.throw(error));
   }
 
