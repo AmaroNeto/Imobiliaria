@@ -1,4 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MapService } from '../services';
+
+import { Ponto } from '../models';
 
 declare const google: any;
 
@@ -11,12 +14,13 @@ declare const google: any;
 })
 export class MapComponent implements OnInit {
 
+  pontos: Ponto[];
   min = 0;
   max = 600;
-  value = 100;
+  value = 150;
   step = 1;
 
-  constructor() { }
+  constructor(private mapService: MapService) { }
 
   onInputChange(event: any) {
     this.value = event.value;
@@ -97,7 +101,7 @@ export class MapComponent implements OnInit {
             }
         ]
     }
-]};
+  ]};
        let map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 
        var marker = new google.maps.Marker({
@@ -107,6 +111,12 @@ export class MapComponent implements OnInit {
   });
 
   marker.setMap(map);
+  }
+
+  listarTodosPorTamanho(){
+     this.mapService.listarTodos().subscribe(
+       response => {this.pontos = response}
+     );
   }
 
 }

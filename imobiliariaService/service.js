@@ -71,17 +71,17 @@ class PontoService{
 
     }
 
-    getPontoByTamanho(){
+    getPontoByPrecoM2(){
 
       let self = this;
-      let param = this.req.query.tamanho
+      let param = this.req.query.preco
 
       try{
         MongoClient.connect(url, (err, database) => {
             assert.equal(null, err);
             let pontosList = []
             const myAwesomeDB = database.db('heroku_n6x99c72')
-            let cursor = myAwesomeDB.collection('imobiliaria').find({"tamanho": {$lt: parseInt(param)} });
+            let cursor = myAwesomeDB.collection('imobiliaria').find({"precoM2": {$lt: parseInt(param)} });
 
             cursor.each(function(err, doc) {
               assert.equal(err, null);

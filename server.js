@@ -41,9 +41,9 @@ app.get('/api/pontos/id/', function(req, res) {
     pontos.getPontoByID();
 });
 
-app.get('/api/pontos/tamanho/', function(req, res) {
+app.get('/api/pontos/precoM2/', function(req, res) {
   let pontos = new pontoService(req, res)
-    pontos.getPontoByTamanho();
+    pontos.getPontoByPrecoM2();
 });
 
 app.get('/*', function(req, res) {

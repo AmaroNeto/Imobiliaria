@@ -38,10 +38,12 @@ export class ListarPontosComponent implements OnInit {
   }
 
   listarTodos(){
-    /*return [new Ponto(1,'rua marques de pombal, boa vista, roraima',
-            '-55555', '-222222', 2500, 200000, 120, 'Viva Real')];*/
      this.mapService.listarTodos().subscribe(
-       response => this.pontos = response,
+       response => {
+         this.pontos = response,
+         this.dataSource = new MatTableDataSource<Ponto>(this.pontos);
+       },
+
        error => this.possuiErro = true
      );
   }

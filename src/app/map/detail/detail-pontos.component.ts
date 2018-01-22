@@ -17,10 +17,13 @@ export class DetailPontosComponent implements OnInit {
   private router: Router) { }
 
   ngOnInit() {
+    this.ponto = new Ponto();
     let id = this.route.snapshot.params['id'];
-    //this.ponto = this.mapService.buscarPorId(id);
-    this.ponto = new Ponto(1,'rua marques de pombal, boa vista, roraima',
-            '-55555', '-222222', 2500, 200000, 120, 'Viva Real');
+    this.mapService.buscarPorId(id).subscribe(
+      response => {
+        this.ponto = response
+      }
+    );
   }
 
 }
