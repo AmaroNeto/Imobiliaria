@@ -1,5 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://heroku_n6x99c72:amaro2017@ds211558.mlab.com:11558/heroku_n6x99c72';
+const assert = require('assert');
+const url = 'mongodb://heroku_n6x99c72:ppjhsebf5rara58irlsd8lucar@ds211558.mlab.com:11558/heroku_n6x99c72';
 
 class PontoService{
     constructor(req, res){
@@ -11,10 +12,12 @@ class PontoService{
 
       let self = this;
       try{
-        MongoClient.connect(url, function(err, db) {
+        MongoClient.connect(url, (err, database) => {
             assert.equal(null, err);
             let pontosList = []
-            let cursor = db.collection('imobiliaria').find();
+            const myAwesomeDB = database.db('heroku_n6x99c72')
+            //myAwesomeDB.collection('theCollectionIwantToAccess')
+            let cursor = myAwesomeDB.collection('imobiliaria').find();
 
             cursor.each(function(err, doc) {
               assert.equal(err, null);
