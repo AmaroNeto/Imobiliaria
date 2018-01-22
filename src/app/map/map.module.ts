@@ -6,7 +6,7 @@ import { MapComponent } from './map';
 import { RouterModule } from '@angular/router';
 import { MapService } from './services';
 
-import { MatButtonModule, MatIconModule, MatCardModule,
+import { MatButtonModule, MatIconModule, MatCardModule, MatSortModule,
   MatTableModule, MatPaginatorModule, MatDialogModule, MatSliderModule} from '@angular/material';
 import { DetailPontosComponent } from './detail';
 
@@ -20,7 +20,8 @@ import { DetailPontosComponent } from './detail';
     MatPaginatorModule,
     MatDialogModule,
     MatCardModule,
-    MatSliderModule
+    MatSliderModule,
+    MatSortModule
   ],
   providers: [MapService],
   declarations: [ListarPontosComponent, MapComponent, DetailPontosComponent],

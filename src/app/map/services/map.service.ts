@@ -48,9 +48,9 @@ export class MapService {
   *@return Observable<Ponto[]>
   */
   listarTodosMenorQue(preco: number): Observable<Ponto[]> {
-    let params = `?preco=${preco}`;
+    let params = `?preco=${preco+1}`;
     return this.http
-      .get(this.BASE_URL+"api/pontos/precoM2")
+      .get(this.BASE_URL+"api/pontos/precoM2"+params)
       .map(response => response.json().data as Ponto[])
       .catch(error => Observable.throw(error));
   }

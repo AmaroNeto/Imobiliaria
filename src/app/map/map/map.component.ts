@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation,ChangeDetectorRef,ChangeDetectionStrategy ,NgZone} from '@angular/core';
 import { MapService } from '../services';
 
 import { Ponto } from '../models';
@@ -10,26 +10,39 @@ declare const google: any;
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],
   encapsulation: ViewEncapsulation.None,
-  preserveWhitespaces: false
+  preserveWhitespaces: false,
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class MapComponent implements OnInit {
 
   pontos: Ponto[];
-  min = 0;
-  max = 600;
-  value = 150;
+  min = 100;
+  max = 10000;
+  value = 3000;
   step = 1;
 
-  constructor(private mapService: MapService) { }
+  map;
+  markers = [];
+
+  pontoDetail: Ponto;
+  showDetail : boolean  = false;
+
+  constructor(private mapService: MapService,private ref: ChangeDetectorRef,private zone: NgZone) { }
 
   onInputChange(event: any) {
     this.value = event.value;
+    this.listarTodosMenorQue(this.value);
   }
 
   ngOnInit() {
+    this.pontoDetail = new Ponto();
+    this.ref.detectChanges();
+    this.listarTodosMenorQue(this.value);
+
     let mapProp = {
-           center: new google.maps.LatLng(-23.6542, -46.6592),
-           zoom: 13,
+           center: new google.maps.LatLng( -23.533773, -46.625290),
+           zoom: 12,
            mapTypeId: google.maps.MapTypeId.ROADMAP,
            styles: [
     {
@@ -102,21 +115,67 @@ export class MapComponent implements OnInit {
         ]
     }
   ]};
-       let map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-
-       var marker = new google.maps.Marker({
-    position: new google.maps.LatLng(-23.6542, -46.6592),
-    map: map,
-    title: 'Hello World!'
-  });
-
-  marker.setMap(map);
+       this.map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
   }
 
-  listarTodosPorTamanho(){
-     this.mapService.listarTodos().subscribe(
-       response => {this.pontos = response}
+  listarTodosMenorQue(preco: number){
+     this.mapService.listarTodosMenorQue(preco).subscribe(
+       response => {
+         console.log(JSON.stringify(response)),
+         this.pontos = response,
+         this.addMarker(this.pontos);
+         this.ref.markForCheck();
+       }
      );
   }
+
+  addMarker(pontos : Ponto[]){
+
+    var toggler = () => {
+        // toggle the flag here
+        this.showDetail = true;
+    }
+
+      this.clear();
+
+      pontos.forEach(item => {
+
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(item.latitude, item.longitude),
+          map: this.map,
+          title: 'preco total: '+item.precoTotal
+        });
+
+        this.markers.push(marker);
+        marker.setMap(this.map);
+
+        marker.addListener('click', (e) => {
+          this.zone.run(() =>{
+            this.showDetail = true;
+              this.pontoDetail = item;
+              this.ref.markForCheck();
+
+          });
+
+        });
+
+      });
+
+  }
+
+  reloadDetail(ponto: any){
+    this.showDetail = true;
+    this.pontoDetail = ponto;
+    console.log("Reload..");
+  }
+
+    clear() {
+        for (var i = 0; i < this.markers.length; i++) {
+          this.markers[i].setMap(null);
+        }
+
+        this.markers = [];
+    }
+
 
 }

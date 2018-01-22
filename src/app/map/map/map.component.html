@@ -1,4 +1,4 @@
-<h2 class="mat-title">por M²</h2>
+<h2 class="mat-title">Preço por M²</h2>
 
   <section class="section">
    <mat-slider
@@ -14,3 +14,26 @@
  </section>
 
 <div id="googleMap" ></div>
+
+<section *ngIf="showDetail">
+
+  <h3>Detalhe</h3>
+
+  <mat-card>
+      <mat-card-header>
+         <mat-card-title>{{pontoDetail.imobiliaria}}</mat-card-title>
+         <mat-card-subtitle>{{pontoDetail.endereco}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <br>
+        <h6>Tamanho:</h6>
+        <p>{{pontoDetail.tamanho}}</p>
+        <h6>Preço Total:</h6>
+        <p>{{pontoDetail.precoTotal}}</p>
+        <h6>Preço do metro quadrado:</h6>
+        <p>{{pontoDetail.precoM2}}</p>
+        <p>coordernadas: lat {{pontoDetail.latitude}} / long {{pontoDetail.longitude}}</p>
+      </mat-card-content>
+  </mat-card>
+
+</section>
