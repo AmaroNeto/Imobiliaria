@@ -17,6 +17,16 @@ app.get('/api/pontos', function(req, res) {
     pontos.getAllPonto()
 });
 
+app.get('/api/pontos/id/', function(req, res) {
+  let pontos = new pontoService(req, res)
+    pontos.getPontoByID();
+});
+
+app.get('/api/pontos/tamanho/', function(req, res) {
+  let pontos = new pontoService(req, res)
+    pontos.getPontoByTamanho();
+});
+
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
